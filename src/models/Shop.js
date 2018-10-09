@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 import { types, flow } from 'mobx-state-tree';
+import fuzzysearch from 'fuzzysearch';
 import User from './User';
 import Checkout from './Checkout';
 import Products from './Products';
@@ -12,20 +13,505 @@ const Shop = types
     user: types.optional(User, {}),
     checkout: types.optional(Checkout, {}),
     products: types.optional(Products, { data: [] }),
+    searchProducts: types.optional(Products, { data: [] }),
     basket: types.optional(Basket, {}),
     apiUrl: 'https://my-mix-api.herokuapp.com/api',
   })
   .actions(self => ({
-    // initial fetch all products request
-    getProducts: flow(function* getProducts() {
-      if (self.products.productCount === 0) {
-        const response = yield fetch(`${self.apiUrl}/products`);
-        const json = yield response.json();
-        console.log(json);
-        self.products.data = json;
-      }
-    }),
-
+    // initial fetch all products request, only works
+    // getProducts: flow(function* getProducts() {
+    //   if (self.products.productCount === 0) {
+    //     const response = yield fetch(`${self.apiUrl}/products`);
+    //     const json = yield response.json();
+    //     console.log(json);
+    //     self.products.data = json;
+    //   }
+    // }),
+    getProducts() {
+      const json = [
+        {
+          id: 0,
+          name: 'Laundry Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cup',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Laundry Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cup',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Laundry Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cup',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Laundry Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cup',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Laundry Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cup',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Laundry Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cup',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Laundry Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cup',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Laundry Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cart',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+        {
+          id: 0,
+          name: 'Coffee Cup',
+          description: 'string',
+          price: 0,
+          options: [
+            {
+              id: 0,
+              option_id: 0,
+              name: 'string',
+              values: [
+                {
+                  value_id: 0,
+                  value_name: 'string',
+                },
+              ],
+            },
+          ],
+          thumbnail_url: 'string',
+        },
+      ];
+      self.products.data = json;
+    },
     proccessOrder: flow(function* proccessOrder() {
       // sets billing/shipping info and products to correct request format
       const request = self.prepOrder();
@@ -53,6 +539,13 @@ const Shop = types
         console.log(err);
       }
     }),
+
+    productSearch(searchTerm) {
+      const productsFound = self.products.data.filter(
+        p => fuzzysearch(searchTerm.toLowerCase(), p.name.toLowerCase()),
+      );
+      return productsFound;
+    },
 
     prepOrder() {
       const request = {

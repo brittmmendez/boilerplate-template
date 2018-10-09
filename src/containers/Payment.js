@@ -5,7 +5,7 @@ import ShopProductsBtn from '../components/ShopProductsBtn';
 
 @inject('shop')
 @observer
-export default class Payment extends Component {
+class Payment extends Component {
   static propTypes = {
     shop: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
@@ -110,3 +110,5 @@ export default class Payment extends Component {
       );
     }
 }
+
+export default Payment;

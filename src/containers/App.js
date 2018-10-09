@@ -18,10 +18,10 @@ class App extends Component {
             <DevTools />
             <NavBar />
             <Routes />
-            <Footer />
-            <div className="prac">
-              <h1 className="try"> Hello </h1>
+            <div className="hello">
+              <p> Hello </p>
             </div>
+            <Footer />
           </div>
         </div>
       </Router>

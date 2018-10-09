@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 @inject('shop')
 @observer
-export default class PurchaseForm extends Component {
+class PurchaseForm extends Component {
   static propTypes = {
     shop: PropTypes.object.isRequired,
     product: PropTypes.object.isRequired,
@@ -37,3 +37,5 @@ export default class PurchaseForm extends Component {
     );
   }
 }
+
+export default PurchaseForm;
