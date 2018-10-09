@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react';
 import Routes from './Routes';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-import '../App.scss';
+import '../styles/App.scss';
 
 @inject('shop')
 @observer
@@ -18,9 +18,6 @@ class App extends Component {
             <DevTools />
             <NavBar />
             <Routes />
-            <div className="hello">
-              <p> Hello </p>
-            </div>
             <Footer />
           </div>
         </div>

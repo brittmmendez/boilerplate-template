@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router-dom';
+import FormikSearch from './FormikSearch';
 
 @inject('shop')
 @observer
@@ -47,11 +48,14 @@ class NavBar extends Component {
         </div>
 
         <div id="navMenu" className={this.state.isActive ? 'navbar-menu is-active' : 'navbar-menu'}>
-          <div className="navbar-start" onClick={this.closeNav}>
-            <div className="navbar-item">
+          <div className="navbar-start">
+            <div className="navbar-item" onClick={this.closeNav}>
               <Link className="button is-dark" to="/products-page">
                 CUSTOMIZE TO ME
               </Link>
+            </div>
+            <div className="navbar-item">
+              <FormikSearch closeNav={this.closeNav} />
             </div>
           </div>
 

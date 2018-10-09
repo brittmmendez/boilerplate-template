@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import App from './containers/App';
-import './index.scss';
+import './styles/index.scss';
 import Shop from './models/Shop';
 
 const shop = Shop.create({});
