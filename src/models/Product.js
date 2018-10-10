@@ -10,7 +10,7 @@ const Product = types
     name: types.string,
     price: types.optional(types.number, 0),
     description: types.optional(types.string, ''),
-    thumbnail_url: types.optional(types.string, ''),
+    // thumbnail_url: types.optional(types.string, ''),
     // if you have options, ex: sizes or colors
     options: types.optional(types.array(ProductOptions), []),
     // if you have categories that you'd like to filter by , ex jeans or shirts

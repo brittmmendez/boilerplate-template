@@ -9,6 +9,7 @@ import {
 import Yup from 'yup';
 import { inject, observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
+// import { Cookies } from 'react-cookie';
 
 @inject('shop')
 @observer
@@ -23,13 +24,31 @@ class FormikLogin extends Component {
             password: Yup.string().required('Password is required'),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            this.props.shop.user.logIn(values);
-            setSubmitting(false);
-            this.props.history.goBack();
+            this.props.shop.user.logIn(values)
+              .then((response) => {
+                if (response) {
+                  // const cookies = new Cookies();
+                  // cookies.set('token', this.props.shop.user.token);
+                  // console.log(cookies);
+                  setSubmitting(false);
+                  this.props.history.push('/account');
+                } else {
+                  console.log('error');
+                  setSubmitting(false);
+                }
+              });
           }}
         >
           {({ isSubmitting }) => (
             <Form>
+              {this.props.shop.user.logInError
+                && (
+                  <strong>
+                    <p className="help is-danger">
+                      Invalaid Username or Password
+                    </p>
+                  </strong>
+                )}
               <label className="label ">
                 Email
                 <ErrorMessage className="help is-danger" name="email" component="div" />

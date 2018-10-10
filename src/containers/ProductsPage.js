@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import ProductItemView from '../components/ProductItemView';
 import ProductShow from './ProductShow';
 import LoadingView from '../components/LodaingView';
+import '../styles/App.scss';
 
 @inject('shop')
 @observer

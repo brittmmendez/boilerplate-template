@@ -1,7 +1,7 @@
 import React from 'react';
 import DevTools from 'mobx-react-devtools';
 import logo from './logo.svg';
-import './App.scss';
+import './styles/App.scss';
 
 const App = () => (
   <div className="App">

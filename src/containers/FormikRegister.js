@@ -111,14 +111,14 @@ class FormikRegister extends Component {
               </label>
               <br />
               <button className="button is-dark " type="submit" disabled={isSubmitting}>
-                Submit
+                Register
               </button>
             </Form>
           )}
         </Formik>
         <h5>
-          Need an account?
-          <Link to="/register"> Register Here!</Link>
+          Have an account?
+          <Link to="/login"> Login!</Link>
         </h5>
       </div>
     );

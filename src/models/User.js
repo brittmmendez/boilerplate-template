@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 import { types, flow, getParent } from 'mobx-state-tree';
+import { Cookies } from 'react-cookie';
 
 const User = types
   .model({
@@ -9,14 +10,10 @@ const User = types
     first_name: types.optional(types.string, ''),
     last_name: types.optional(types.string, ''),
     email: types.optional(types.string, ''),
+    logInError: types.optional(types.boolean, false),
     loggedIn: types.optional(types.boolean, false),
     token: types.optional(types.string, ''),
   })
-  .views(self => ({
-    get loggedInView() {
-      return self.loggedIn;
-    },
-  }))
   .actions(self => ({
     logOut() {
       self.id = 0;
@@ -25,6 +22,9 @@ const User = types
       self.email = '';
       self.loggedIn = false;
       self.token = '';
+      const cookies = new Cookies();
+      cookies.set('token', '');
+      console.log(cookies);
       console.log('logged Out');
     },
 
@@ -44,7 +44,9 @@ const User = types
 
         if (response.status === 401) {
           const result = yield response.json();
+          self.logInError = true;
           console.log(result);
+          return false;
         }
 
         if (response.status === 200) {
@@ -55,13 +57,22 @@ const User = types
           self.last_name = result.customer.last_name;
           self.email = userInfo.email;
           self.token = result.token;
+          self.logInError = false;
           self.loggedIn = true;
           console.log('signed in');
           console.log(result);
+          const cookies = new Cookies();
+          cookies.set('token', result.token);
+          console.log(cookies);
+          return true;
         }
       } catch (err) {
+        self.logInError = true;
         console.log(err);
+        return false;
       }
+      self.logInError = false;
+      return true;
     }),
 
     register: flow(function* register(userInfo) {

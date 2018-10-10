@@ -20,9 +20,9 @@ class NavBar extends Component {
     }));
   }
 
-  openNav = () => {
+  toggleNav = () => {
     this.setState({
-      isActive: true,
+      isActive: !this.state.isActive,
     });
   }
 
@@ -40,7 +40,7 @@ class NavBar extends Component {
           <Link className="navbar-item" to="/">
             <i className="fas fa-broadcast-tower" />
           </Link>
-          <div className="navbar-burger burger" data-target="navMenu" onClick={this.openNav}>
+          <div className="navbar-burger burger" data-target="navMenu" onClick={this.toggleNav}>
             <span />
             <span />
             <span />

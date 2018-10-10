@@ -10,7 +10,7 @@ class ProductItemView extends Component {
     return (
       <div className="column is-half-tablet is-one-third-desktop is-one-quarter-widescreen">
         <Link key={product.id} to={`/products-page/${product.id}`}>
-          <h4>
+          <h4 className="red">
             {product.name}
           </h4>
           <img src={product.thumbnail_url} alt={product.name} width="150px" height="150px" />
