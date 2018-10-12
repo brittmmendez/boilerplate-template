@@ -27,9 +27,6 @@ class FormikLogin extends Component {
             this.props.shop.user.logIn(values)
               .then((response) => {
                 if (response) {
-                  // const cookies = new Cookies();
-                  // cookies.set('token', this.props.shop.user.token);
-                  // console.log(cookies);
                   setSubmitting(false);
                   this.props.history.push('/account');
                 } else {

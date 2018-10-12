@@ -1,5 +1,6 @@
 import React from 'react';
 import DevTools from 'mobx-react-devtools';
+import FormChatBot from './components/FormChatBot';
 import logo from './logo.svg';
 import './styles/App.scss';
 
@@ -22,6 +23,7 @@ const App = () => (
         Learn React
       </a>
     </header>
+    <FormChatBot />
   </div>
 );
 
