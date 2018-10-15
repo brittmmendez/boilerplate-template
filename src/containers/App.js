@@ -19,9 +19,7 @@ class App extends Component {
             <DevTools />
             <NavBar />
             <Routes />
-            <div className="chatBotTheme">
-              <FormChatBot />
-            </div>
+            <FormChatBot />
             <Footer />
           </div>
         </div>

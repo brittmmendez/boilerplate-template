@@ -38,7 +38,7 @@ class NavBar extends Component {
       <nav className="navbar has-background-grey-light is-transparent">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
-            <i className="fas fa-broadcast-tower" />
+            <i className="fas fa-circle-thin" aria-hidden="true" />
           </Link>
           <div className="navbar-burger burger" data-target="navMenu" onClick={this.toggleNav}>
             <span />

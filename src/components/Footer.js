@@ -1,13 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const style = {
+  bottom: '0',
+  width: '100%',
+  height: '60px',
+  background: '#6cf',
+};
+
 const Footer = () => (
-  <footer className="footer has-background-white-bis">
+  <footer className="footer has-background-white-bis" style={style}>
     <div className="container">
       <div className="columns">
         <div className="column is-6 is-size-7">
           <Link className="navbar-item has-text-grey" to="/">
-            <i className="fas fa-broadcast-tower" />
+            <i className="fas fa-circle-o" />
           </Link>
         </div>
         <div className="column is-6">
