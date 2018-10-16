@@ -2,11 +2,20 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-console */
 import { types, flow } from 'mobx-state-tree';
+import { createClient } from 'contentful';
 import fuzzysearch from 'fuzzysearch';
 import User from './User';
 import Checkout from './Checkout';
 import Products from './Products';
 import Basket from './Basket';
+
+// Contentful Configuration
+const client = createClient({
+  space: '0g2ovjairksb',
+  environment: 'master', // defaults to 'master' if not set
+  accessToken: 'b65e03f849d4e071d7edaefd70b7e72dad3c6a269341365f9cec4b69d13aa12d',
+});
+console.log(client);
 
 const Shop = types
   .model({
@@ -19,6 +28,14 @@ const Shop = types
   })
   .actions(self => ({
     // initial fetch all products request, only works
+    getContent: flow(function* getContent() {
+      if (self.products.productCount === 0) {
+        const entries = yield client.getEntries();
+        // will have to figure out best way to store in a model once we have our accurate content
+        entries.items.map(a => console.log(a.fields));
+      }
+    }),
+
     getProducts: flow(function* getProducts() {
       if (self.products.productCount === 0) {
         const response = yield fetch(`${self.apiUrl}/products`);
@@ -27,351 +44,7 @@ const Shop = types
         self.products.data = json;
       }
     }),
-    // getProducts() {
-    //   const json = [
-    //     {
-    //       id: 0,
-    //       name: 'Laundry Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Coffee Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Coffee Cup',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Laundry Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Coffee Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Coffee Cup',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Laundry Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Coffee Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Coffee Cup',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Laundry Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Coffee Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Coffee Cup',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Laundry Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Coffee Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Coffee Cup',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Laundry Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //     {
-    //       id: 0,
-    //       name: 'Coffee Cart',
-    //       description: 'string',
-    //       price: 0,
-    //       options: [
-    //         {
-    //           id: 0,
-    //           option_id: 0,
-    //           name: 'string',
-    //           values: [
-    //             {
-    //               value_id: 0,
-    //               value_name: 'string',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //       thumbnail_url: 'string',
-    //     },
-    //   ];
-    //   self.products.data = json;
-    // },
+
     proccessOrder: flow(function* proccessOrder() {
       // sets billing/shipping info and products to correct request format
       const request = self.prepOrder();
@@ -484,6 +157,7 @@ const Shop = types
 
     load() {
       self.getProducts();
+      self.getContent();
     },
 
     reload() {
