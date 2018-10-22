@@ -17,6 +17,14 @@ const client = createClient({
 });
 console.log(client);
 
+const client2 = createClient({
+  space: '9naqf59bpczr',
+  environment: 'master', // defaults to 'master' if not set
+  accessToken: '8e86f779fa6bd16b9411cd0af6128bbd1fa22aadcf68ccec96fb438a763ce366',
+});
+
+console.log(client2);
+
 const Shop = types
   .model({
     user: types.optional(User, {}),
@@ -28,7 +36,16 @@ const Shop = types
   })
   .actions(self => ({
     // initial fetch all products request, only works
-    getContent: flow(function* getContent() {
+    getContentPractice: flow(function* getContentPractice() {
+      if (self.products.productCount === 0) {
+        const entries = yield client2.getEntries();
+        // will have to figure out best way to store in a model once we have our accurate content
+        entries.items.map(a => console.log(a.fields));
+      }
+    }),
+
+    // initial fetch all products request
+    getContentBookStore: flow(function* getContentBookStore() {
       if (self.products.productCount === 0) {
         const entries = yield client.getEntries();
         // will have to figure out best way to store in a model once we have our accurate content
@@ -157,7 +174,8 @@ const Shop = types
 
     load() {
       self.getProducts();
-      self.getContent();
+      self.getContentPractice();
+      self.getContentBookStore();
     },
 
     reload() {

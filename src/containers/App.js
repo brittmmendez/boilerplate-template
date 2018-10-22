@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DevTools from 'mobx-react-devtools';
+// import DevTools from 'mobx-react-devtools';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import FormChatBot from '../components/FormChatBot';
@@ -15,13 +15,13 @@ class App extends Component {
     return (
       <Router>
         <div id="main-wrapper">
-          <div className="App">
-            <DevTools />
+          {/* <DevTools /> */}
+          <section className="hero is-fullheight">
             <NavBar />
             <Routes />
             <FormChatBot />
             <Footer />
-          </div>
+          </section>
         </div>
       </Router>
     );
